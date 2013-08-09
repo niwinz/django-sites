@@ -1,7 +1,8 @@
 django-sites
 ============
 
-Alternative implementation of django "sites" framework.
+Alternative implementation of django "sites" framework based on
+settings instead of models.
 
 
 How to install?
@@ -13,8 +14,7 @@ You can install it with pip:
 
     pip install django-sites
 
-
-QuickStart
-----------
+Documentation
+-------------
 
 TODO
