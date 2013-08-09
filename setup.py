@@ -24,6 +24,7 @@ setup(
     license = "BSD",
     packages = [
         "django_sites",
+        "django_sites.templatetags",
     ],
 
     install_requires = INSTALL_REQUIRES,
