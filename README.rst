@@ -17,4 +17,4 @@ You can install it with pip:
 Documentation
 -------------
 
-TODO
+https://django-sites.readthedocs.org/en/latest/
