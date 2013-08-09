@@ -79,16 +79,16 @@ Internal documentation
     :rtype: :py:class:`~django_sites.Site`
 
 
-.. py:function:: django_sites.resolve
+.. py:function:: django_sites.reverse
 
-    Same as django's resolve but returns a full url
+    Same as django's reverse but returns a full url
     with domain name and corresponding scheme for current
     configured site.
 
     .. code-block:: python
 
-        >>> from django_sites import resolve as sites_resolve
-        >>> sites_resolve('ns:foo')
+        >>> from django_sites import reverse as sites_reverse
+        >>> sites_reverse('ns:foo')
         'http://example.com/foo'
 
 
@@ -96,4 +96,4 @@ Additional notes
 ----------------
 
 * This package is compatible with django-jinja and automaticaly exposes
-  `sites_resolve` global function on jinja templates context.
+  `sites_reverse` global function on jinja templates context.
