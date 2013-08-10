@@ -34,7 +34,7 @@ Put 'django_sites' on your settings.py as first step:
     # settings.py
     INSTALLED_APPS = [
         # ...
-        'django_sities',
+        'django_sites',
     ]
 
 
@@ -96,4 +96,4 @@ Additional notes
 ----------------
 
 * This package is compatible with django-jinja and automaticaly exposes
-  `sites_reverse` global function on jinja templates context.
+  `sites_url` global function on jinja templates context.
