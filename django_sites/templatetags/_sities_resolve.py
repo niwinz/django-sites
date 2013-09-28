@@ -9,6 +9,10 @@ try:
     def sites_url(name, *args, **kwargs):
         return utils.reverse(name, args=args, kwargs=kwargs)
 
+    def sites_static(path):
+        return utils.static(path)
+
     jinja_register.global_function("sites_url", sites_url)
+    jinja_register.global_function("sites_static", sites_static)
 except ImportError:
     pass
