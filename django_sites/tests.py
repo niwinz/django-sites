@@ -17,7 +17,10 @@ class BasicSitesTests(unittest.TestCase):
     def test_get_sites_config_02(self):
         config = base._get_sites_config()
         self.assertEqual(config,
-            {1: {'domain': 'example1.com', 'scheme': 'https'}, 2: {'domain': 'example2.com'}})
+            {
+                1: {'domain': 'example1.com', 'name': 'example1.com', 'scheme': 'https'},
+                2: {'domain': 'example2.com', 'name': 'example2.com'}
+            })
 
     @override_settings(SITES=None)
     def test_get_current_site_01(self):
@@ -28,6 +31,7 @@ class BasicSitesTests(unittest.TestCase):
     def test_get_current_site_02(self):
         site = base.get_current()
         self.assertEqual(site.domain, "example1.com")
+        self.assertEqual(site.name, "example1.com")
 
     @override_settings(SITE_ID=1)
     def test_get_current_site_03(self):
@@ -38,6 +42,7 @@ class BasicSitesTests(unittest.TestCase):
     def test_get_current_site_04(self):
         site = base.get_current()
         self.assertEqual(site.domain, "example2.com")
+        self.assertEqual(site.name, "example2.com")
 
     @override_settings(SITE_ID=2)
     def test_get_current_site_05(self):
