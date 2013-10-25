@@ -28,6 +28,15 @@ class Site(object):
             scheme = getattr(settings, "DJANGO_SITES_DEFAULT_SCHEME", "")
         return scheme
 
+    @cached_property
+    def name(self):
+        try:
+            name = self._config.get("name")
+        except AttributeError:
+            raise exceptions.SitesNotConfigured("site has wrong configuration")
+        else:
+            return name
+
 
 def memoize(function=None, args=0):
     """
