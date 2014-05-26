@@ -18,8 +18,8 @@ class BasicSitesTests(unittest.TestCase):
         config = base._get_sites_config()
         self.assertEqual(config,
             {
-                1: {'domain': 'example1.com', 'name': 'example1.com', 'scheme': 'https'},
-                2: {'domain': 'example2.com', 'name': 'example2.com'}
+                "foo": {'domain': 'example1.com', 'name': 'example1.com', 'scheme': 'https'},
+                "bar": {'domain': 'example2.com', 'name': 'example2.com'}
             })
 
     @override_settings(SITES=None)
@@ -27,46 +27,51 @@ class BasicSitesTests(unittest.TestCase):
         with self.assertRaises(SitesNotConfigured):
             site = base.get_current()
 
-    @override_settings(SITE_ID=1)
+    @override_settings(SITE_ID="foo")
     def test_get_current_site_02(self):
         site = base.get_current()
         self.assertEqual(site.domain, "example1.com")
         self.assertEqual(site.name, "example1.com")
 
-    @override_settings(SITE_ID=1)
+    @override_settings(SITE_ID="foo")
     def test_get_current_site_03(self):
         site = base.get_current()
         self.assertEqual(site.scheme, "https")
 
-    @override_settings(SITE_ID=2)
+    @override_settings(SITE_ID="bar")
     def test_get_current_site_04(self):
         site = base.get_current()
         self.assertEqual(site.domain, "example2.com")
         self.assertEqual(site.name, "example2.com")
 
-    @override_settings(SITE_ID=2)
+    @override_settings(SITE_ID="bar")
     def test_get_current_site_05(self):
         site = base.get_current()
         self.assertEqual(site.scheme, "")
 
-    @override_settings(SITE_ID=2, DJANGO_SITES_DEFAULT_SCHEME="http")
+    @override_settings(SITE_ID="bar", DJANGO_SITES_DEFAULT_SCHEME="http")
     def test_get_current_site_06(self):
         site = base.get_current()
         self.assertEqual(site.scheme, "http")
 
+    def test_get_by_id(self):
+        site = base.get_by_id("bar")
+        self.assertEqual(site.domain, "example2.com")
+        self.assertEqual(site.name, "example2.com")
+
 
 class ReverseTests(unittest.TestCase):
-    @override_settings(SITE_ID=2)
+    @override_settings(SITE_ID="bar")
     def test_reverse_01(self):
         url = utils.reverse("foo")
         self.assertEqual(url, "//example2.com/foo")
 
-    @override_settings(SITE_ID=2, DJANGO_SITES_DEFAULT_SCHEME="http")
+    @override_settings(SITE_ID="bar", DJANGO_SITES_DEFAULT_SCHEME="http")
     def test_reverse_02(self):
         url = utils.reverse("foo")
         self.assertEqual(url, "http://example2.com/foo")
 
-    @override_settings(SITE_ID=1, DJANGO_SITES_DEFAULT_SCHEME="http")
+    @override_settings(SITE_ID="foo", DJANGO_SITES_DEFAULT_SCHEME="http")
     def test_reverse_03(self):
         url = utils.reverse("foo")
         self.assertEqual(url, "https://example1.com/foo")

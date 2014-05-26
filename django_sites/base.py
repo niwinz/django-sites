@@ -74,6 +74,19 @@ def get_site_from_settings():
     return Site(sites[current_site_id])
 
 
+def get_by_id(id):
+    """
+    Get site instance from settings
+    configuration.
+    """
+    sites = _get_sites_config()
+
+    try:
+        return Site(sites[id])
+    except KeyError:
+        raise exceptions.SiteNotFound("Site with id '{}' not found".format(id))
+
+
 def get_current():
     """
     Get current site.

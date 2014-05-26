@@ -35,10 +35,10 @@ test_settings = {
     ),
     'MANAGERS': ("niwi@niwi.be",),
     'SITES': {
-        1: {"domain": "example1.com", "name": "example1.com", "scheme": "https"},
-        2: {"domain": "example2.com", "name": "example2.com"}
+        "foo": {"domain": "example1.com", "name": "example1.com", "scheme": "https"},
+        "bar": {"domain": "example2.com", "name": "example2.com"}
     },
-    "SITE_ID": 1,
+    "SITE_ID": "foo",
 }
 
 

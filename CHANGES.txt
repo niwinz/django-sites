@@ -1,6 +1,14 @@
 Changelog
 =========
 
+Version 0.6
+-----------
+- Add get_by_id method.
+
+Version 0.5
+-----------
+- Add name attribute
+
 Version 0.4
 -----------
 - Add sites_static function
