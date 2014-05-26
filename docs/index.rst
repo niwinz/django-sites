@@ -44,8 +44,8 @@ As second step, configure your sites and default site id:
 
     # settings.py
     SITES = {
-        1: {"domain": "localhost:8000", "scheme": "http"},
-        2: {"domain": "somehost.com", "scheme": "https"},
+        1: {"domain": "localhost:8000", "scheme": "http", "name": "localhost"},
+        2: {"domain": "somehost.com", "scheme": "https", "name": "somehost"},
     }
 
     # settings_development.py

@@ -14,7 +14,7 @@ if sys.version_info < (2, 7):
 
 setup(
     name = "django-sites",
-    version = "0.4",
+    version = "0.5",
     description = "Alternative implementation of django sites framework",
     long_description = "",
     keywords = "django, sites",
@@ -28,7 +28,6 @@ setup(
     ],
 
     install_requires = INSTALL_REQUIRES,
-
     classifiers = [
         "Development Status :: 4 - Beta",
         "Framework :: Django",
@@ -41,6 +40,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
         "Topic :: Internet :: WWW/HTTP",
     ]
 )
