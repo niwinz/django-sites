@@ -1,40 +1,44 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
+import django
+
 from django.conf import settings
-from django.core.management import call_command
-
-#RUNTESTS_DIR = os.path.abspath(os.path.dirname(__file__))
-#sys.path.insert(0, PREVIOUS_DIR)
-
 
 test_settings = {
-    'DATABASES':{
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
+    "DATABASES":{
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
         }
     },
-    'INSTALLED_APPS': [
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.staticfiles',
-        'django.contrib.messages',
-        'django_sites',
+    "INSTALLED_APPS": [
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.staticfiles",
+        "django.contrib.messages",
+        "django_sites",
+        "django_jinja",
     ],
-    'ROOT_URLCONF':'testing.urls',
-    'USE_I18N': True,
-    'USE_TZ': True,
-    'LANGUAGE_CODE':'en',
-    'MIDDLEWARE_CLASSES': (
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
+    "ROOT_URLCONF":"testing.urls",
+    "USE_I18N": True,
+    "USE_TZ": True,
+    "TEMPLATE_LOADERS": [
+        "django_jinja.loaders.AppLoader",
+        "django_jinja.loaders.FileSystemLoader",
+    ],
+
+    "STATIC_URL": "/static/",
+    "LANGUAGE_CODE":"en",
+    "MIDDLEWARE_CLASSES": (
+        "django.middleware.common.CommonMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
     ),
-    'MANAGERS': ("niwi@niwi.be",),
-    'SITES': {
+    "MANAGERS": ("niwi@niwi.be",),
+    "SITES": {
         "foo": {"domain": "example1.com", "name": "example1.com", "scheme": "https"},
         "bar": {"domain": "example2.com", "name": "example2.com"}
     },
@@ -42,13 +46,20 @@ test_settings = {
 }
 
 
-if __name__ == '__main__':
-    test_args = sys.argv[1:]
+if django.VERSION[:2] >= (1, 6):
+    test_settings["TEST_RUNNER"] = "django.test.runner.DiscoverRunner"
+
+
+if __name__ == "__main__":
+    from django.core.management import execute_from_command_line
 
     if not settings.configured:
         settings.configure(**test_settings)
 
-    if not test_args:
-        test_args = ['django_sites']
+    args = sys.argv
+    args.insert(1, "test")
 
-    call_command("test", *test_args, verbosity=2)
+    if django.VERSION[:2] < (1, 6):
+        args.insert(2, "django_sites")
+
+    execute_from_command_line(args)
