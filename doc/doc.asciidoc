@@ -34,7 +34,7 @@ User guide
 Installation
 ~~~~~~~~~~~~
 
-The simplest way to install **django-jinja** is using **pip**:
+The simplest way to install **django-sites** is using **pip**:
 
 [source, bash]
 ----
