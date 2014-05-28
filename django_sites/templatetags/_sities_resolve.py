@@ -3,16 +3,15 @@
 from .. import utils
 
 try:
-    from django_jinja.base import Library
-    jinja_register = Library()
+    from django_jinja import library
 
+    @library.global_function
     def sites_url(name, *args, **kwargs):
-        return utils.reverse(name, args=args, kwargs=kwargs)
+        site_id = kwargs.pop("site_id", None)
+        return utils.reverse(name, args=args, kwargs=kwargs, site_id=site_id)
 
-    def sites_static(path):
-        return utils.static(path)
-
-    jinja_register.global_function("sites_url", sites_url)
-    jinja_register.global_function("sites_static", sites_static)
+    @library.global_function
+    def sites_static(path, site_id=None):
+        return utils.static(path, site_id=site_id)
 except ImportError:
     pass
