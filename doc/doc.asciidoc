@@ -1,0 +1,193 @@
+django-sites documentation
+==========================
+Andrey Antukh, <niwi@niwi.be>
+0.7.0, 2014-05-28
+
+:toc:
+
+
+Introduction
+------------
+
+
+Alternative implementation of django "sites" framework based on
+settings instead of models.
+
+The main motivation for make this package is solve in a simple way to make urls
+with correspondig domain in each environment (production, development, etc...)
+
+Also, I consider that use database for store a site configuration, is slighty overkill.
+
+This package do same or similar thing that original "sites" framework of django,
+but does not intends to solve the same use cases.
+
+Requirements
+------------
+
+- Python 2.7, 3.3 or 3.4
+- Django 1.4, 1.5, 1.6 and 1.7
+
+
+User guide
+----------
+
+Installation
+~~~~~~~~~~~~
+
+The simplest way to install **django-jinja** is using **pip**:
+
+[source, bash]
+----
+pip install django-sites==0.7
+----
+
+
+Configure
+~~~~~~~~~
+
+Add add `django_sites` to django installed apps list:
+
+[source, python]
+----
+INSTALLED_APPS += ('django_sites',)
+----
+
+And configure your default sites:
+
+[source, python]
+----
+# settings.py
+SITES = {
+    "dev": {"domain": "localhost:8000", "scheme": "http", "name": "localhost"},
+    "pro": {"domain": "somehost.com", "scheme": "https", "name": "somehost"},
+}
+
+# settings_development.py
+# defaut site id for development environment
+SITE_ID = "dev"
+
+# settings_production.py
+# defaut site id for production environment
+SITE_ID = "pro"
+----
+
+Python Api reference
+~~~~~~~~~~~~~~~~~~~~
+
+`django_sites.get_current()`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Returns a current site instance depending on `settings.SITE_ID` value. It
+can raise `django_sites.exceptions.SitesNotConfigured`.
+
+
+`django_sites.get_by_id(id)`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Returns a site instance corresponding to specified id. It can raise
+`django_sites.exceptions.SiteNotFound` exception in case of
+key not matches any configured site.
+
+[source, pycon]
+----
+>>> from django_sites import get_by_id as get_site_by_id
+>>> site = get_site_by_id("pro")
+>>> site.domain
+'somehost.com'
+>>> site.scheme
+'https'
+>>> site.name
+'somehost'
+----
+
+
+`django_sites.reverse(*args, **kwargs)`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This function works like django's reverse function but appends
+the current site scheme, and domain to the url.
+
+[source, pycon]
+----
+>>> from django_sites import reverse as sites_reverse
+>>> sites_reverse('ns:foo')
+'http://example.com/foo'
+----
+
+
+Jinja2 Api Reference
+~~~~~~~~~~~~~~~~~~~~
+
+If you are also `django-jinja` user, `django-sites` exposes two helper functions
+for use it from jinja2 templates.
+
+
+Reverse urls in templates
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.Jinja2 template example
+[source, jinja]
+----
+<a href="{{ sites_url('foo') }}">Link</a>
+<a href="{{ sites_url('foo', site_id='pro') }}">Link</a>
+----
+
+.Rendered result
+[source, html]
+----
+<a href="http://localhost:8000/foo">Link</a>
+<a href="https://somehost.com/foo">Link</a>
+----
+
+
+Reverse static urls
+^^^^^^^^^^^^^^^^^^^
+
+.Jinja2 template example
+[source, jinja]
+----
+<script src="{{ sites_static('lib.js') }}"></script>
+<script src="{{ sites_static('lib.js', site_id='pro') }}"></script>
+----
+
+.Rendered result
+[source, html]
+----
+<script src="http://localhost:8000/static/lib.js"></script>
+<script src="https://somehost.com/static/lib.js"></script>
+----
+
+
+
+.[[license]]
+License
+-------
+
+[source,text]
+----
+Copyright (c) 2013-2014 Andrey Antukh <niwi@niwi.be>
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+3. The name of the author may not be used to endorse or promote products
+   derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+----
