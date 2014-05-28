@@ -2,10 +2,13 @@
 
 import unittest
 
+from django.template.loader import render_to_string
 from django.test.utils import override_settings
 from django_sites.exceptions import SitesNotConfigured
 from django_sites import base
 from django_sites import utils
+
+from django_jinja.base import env
 
 
 class BasicSitesTests(unittest.TestCase):
@@ -60,6 +63,24 @@ class BasicSitesTests(unittest.TestCase):
         self.assertEqual(site.name, "example2.com")
 
 
+class JinjaTemplateTests(unittest.TestCase):
+    @override_settings(SITE_ID="bar", DJANGO_SITES_DEFAULT_SCHEME="http")
+    def test_template_sites_url_functions(self):
+        url = env.from_string("{{ sites_url('foo') }}").render({})
+        self.assertEqual(url, "http://example2.com/foo")
+
+        url = env.from_string("{{ sites_url('foo', site_id='foo') }}").render({})
+        self.assertEqual(url, "https://example1.com/foo")
+
+    @override_settings(SITE_ID="bar", DJANGO_SITES_DEFAULT_SCHEME="http")
+    def test_template_static_url_functions(self):
+        url = env.from_string("{{ sites_static('lib.js') }}").render({})
+        self.assertEqual(url, "http://example2.com/static/lib.js")
+
+        url = env.from_string("{{ sites_static('libs.js', site_id='foo') }}").render({})
+        self.assertEqual(url, "https://example1.com/static/libs.js")
+
+
 class ReverseTests(unittest.TestCase):
     @override_settings(SITE_ID="bar")
     def test_reverse_01(self):
@@ -75,3 +96,9 @@ class ReverseTests(unittest.TestCase):
     def test_reverse_03(self):
         url = utils.reverse("foo")
         self.assertEqual(url, "https://example1.com/foo")
+
+    def test_reverse_04(self):
+        url = utils.reverse("foo", site_id="foo")
+        self.assertEqual(url, "https://example1.com/foo")
+        url = utils.reverse("foo", site_id="bar")
+        self.assertEqual(url, "//example2.com/foo")
