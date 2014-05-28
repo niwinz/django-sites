@@ -14,7 +14,7 @@ if sys.version_info < (2, 7):
 
 setup(
     name = "django-sites",
-    version = "0.6",
+    version = "0.7",
     description = "Alternative implementation of django sites framework",
     long_description = "",
     keywords = "django, sites",
