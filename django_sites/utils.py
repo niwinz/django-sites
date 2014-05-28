@@ -7,27 +7,35 @@ from django.utils.functional import lazy
 from . import base
 
 
-def reverse(*args, **kwargs):
+def reverse(viewname, args=None, kwargs=None, site_id=None):
     """
     Django-Sities version of reverse method that
     return full urls (with domain, protocol, etc...)
     """
 
-    url = _reverse(*args, **kwargs)
-    site = base.get_current()
+    if site_id is None:
+        site = base.get_current()
+    else:
+        site = base.get_by_id(site_id)
 
+    url = _reverse(viewname, args=args, kwargs=kwargs)
     url_tmpl = "{scheme}//{domain}{url}"
+
     scheme = site.scheme and "{0}:".format(site.scheme) or ""
     return url_tmpl.format(scheme=scheme, domain=site.domain, url=url)
 
 
-def static(path):
+def static(path, site_id=None):
     url = _static(path)
 
     if url.startswith("http"):
         return url
 
-    site = base.get_current()
+    if site_id is None:
+        site = base.get_current()
+    else:
+        site = base.get_by_id(site_id)
+
     url_tmpl = "{scheme}//{domain}{url}"
     scheme = site.scheme and "{0}:".format(site.scheme) or ""
     return url_tmpl.format(scheme=scheme, domain=site.domain, url=url)
