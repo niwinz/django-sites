@@ -27,4 +27,5 @@ You can install it with pip:
 Documentation
 -------------
 
-https://django-sites.readthedocs.org/en/latest/
+
+http://niwibe.github.io/django-sites/
