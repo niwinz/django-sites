@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.8
+-----------
+
+- Fixed missing imports.
+
 Version 0.7
 -----------
 
