@@ -1,8 +1,8 @@
 django-sites
 ============
 
-.. image:: https://img.shields.io/travis/niwibe/django-sites.svg?style=flat
-    :target: https://travis-ci.org/niwibe/django-sites
+.. image:: https://img.shields.io/travis/niwinz/django-sites.svg?style=flat
+    :target: https://travis-ci.org/niwinz/django-sites
 
 .. image:: https://img.shields.io/pypi/v/django-sites.svg?style=flat
     :target: https://pypi.python.org/pypi/django-sites
@@ -28,4 +28,4 @@ Documentation
 -------------
 
 
-http://niwibe.github.io/django-sites/
+http://niwinz.github.io/django-sites/

@@ -20,7 +20,7 @@ setup(
     keywords = "django, sites",
     author = "Andrey Antukh",
     author_email = "niwi@niwi.be",
-    url = "https://github.com/niwibe/django-sites",
+    url = "https://github.com/niwinz/django-sites",
     license = "BSD",
     packages = [
         "django_sites",
