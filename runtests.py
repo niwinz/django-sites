@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import sys, os
-import django
+import sys
 
+import django
 from django.conf import settings
 
 test_settings = {
-    "DATABASES":{
+    "DATABASES": {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
         }
@@ -20,16 +20,12 @@ test_settings = {
         "django_sites",
         "django_jinja",
     ],
-    "ROOT_URLCONF":"testing.urls",
+    "ROOT_URLCONF": "testing.urls",
     "USE_I18N": True,
     "USE_TZ": True,
-    "TEMPLATE_LOADERS": [
-        "django_jinja.loaders.AppLoader",
-        "django_jinja.loaders.FileSystemLoader",
-    ],
 
     "STATIC_URL": "/static/",
-    "LANGUAGE_CODE":"en",
+    "LANGUAGE_CODE": "en",
     "MIDDLEWARE_CLASSES": (
         "django.middleware.common.CommonMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
@@ -45,9 +41,27 @@ test_settings = {
     "SITE_ID": "foo",
 }
 
-
 if django.VERSION[:2] >= (1, 6):
     test_settings["TEST_RUNNER"] = "django.test.runner.DiscoverRunner"
+
+if django.VERSION[:2] <= (1, 7):
+    test_settings["TEMPLATE_LOADERS"] = [
+        "django_jinja.loaders.AppLoader",
+        "django_jinja.loaders.FileSystemLoader",
+    ]
+else:
+    test_settings["TEMPLATES"] = [
+        {
+            "BACKEND": "django_jinja.backend.Jinja2",
+            "NAME": "jinja2",
+            "APP_DIRS": True
+        },
+        {
+            "BACKEND": "django.template.backends.django.DjangoTemplates",
+            "DIRS": [],
+            "APP_DIRS": True
+        },
+    ]
 
 
 if __name__ == "__main__":

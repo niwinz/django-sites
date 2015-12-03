@@ -1,26 +1,33 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import django
 
-from django.template.loader import render_to_string
-from django.test.utils import override_settings
 from django_sites.exceptions import SitesNotConfigured
 from django_sites import base
 from django_sites import utils
 
-from django_jinja.base import env
+if django.VERSION[:2] < (1, 7):
+    from django.test.utils import override_settings
+else:
+    from django.test import override_settings
+
+if django.VERSION[:2] >= (1, 8):
+    from django.template import engines
+    env = engines["jinja2"]
+else:
+    from django_jinja.base import env
 
 
 class BasicSitesTests(unittest.TestCase):
     @override_settings(SITES=None)
     def test_get_sites_config_01(self):
         with self.assertRaises(SitesNotConfigured):
-            config = base._get_sites_config()
+            base._get_sites_config()
 
     def test_get_sites_config_02(self):
         config = base._get_sites_config()
-        self.assertEqual(config,
-            {
+        self.assertEqual(config, {
                 "foo": {'domain': 'example1.com', 'name': 'example1.com', 'scheme': 'https'},
                 "bar": {'domain': 'example2.com', 'name': 'example2.com'}
             })
@@ -28,7 +35,7 @@ class BasicSitesTests(unittest.TestCase):
     @override_settings(SITES=None)
     def test_get_current_site_01(self):
         with self.assertRaises(SitesNotConfigured):
-            site = base.get_current()
+            base.get_current()
 
     @override_settings(SITE_ID="foo")
     def test_get_current_site_02(self):
