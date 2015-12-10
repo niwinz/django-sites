@@ -1,10 +1,11 @@
 Changelog
 =========
 
-Version 0.9-dev
+Version 0.9
 -----------
 - Add support for Django 1.8 and 1.9
 - Drop support for Django 1.4
+
 
 Version 0.8
 -----------

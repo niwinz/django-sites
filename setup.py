@@ -14,12 +14,12 @@ if sys.version_info < (2, 7):
 
 setup(
     name = "django-sites",
-    version = "0.8",
+    version = "0.9",
     description = "Alternative implementation of django sites framework",
     long_description = "",
     keywords = "django, sites",
     author = "Andrey Antukh",
-    author_email = "niwi@niwi.be",
+    author_email = "niwi@niwi.nz",
     url = "https://github.com/niwinz/django-sites",
     license = "BSD",
     packages = [
@@ -41,6 +41,7 @@ setup(
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Topic :: Internet :: WWW/HTTP",
     ]
 )
