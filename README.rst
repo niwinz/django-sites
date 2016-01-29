@@ -28,4 +28,4 @@ Documentation
 -------------
 
 
-http://niwinz.github.io/django-sites/
+http://niwinz.github.io/django-sites/latest/
