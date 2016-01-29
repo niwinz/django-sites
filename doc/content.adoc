@@ -2,8 +2,11 @@ django-sites documentation
 ==========================
 Andrey Antukh, <niwi@niwi.nz>
 0.9.0, 2015-12-10
+:toc: left
+:numbered:
+:source-highlighter: pygments
+:pygments-style: friendly
 
-:toc:
 
 
 Introduction
