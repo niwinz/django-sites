@@ -19,10 +19,7 @@ def reverse(viewname, args=None, kwargs=None, site_id=None):
         site = base.get_by_id(site_id)
 
     url = _reverse(viewname, args=args, kwargs=kwargs)
-    url_tmpl = "{scheme}//{domain}{url}"
-
-    scheme = site.scheme and "{0}:".format(site.scheme) or ""
-    return url_tmpl.format(scheme=scheme, domain=site.domain, url=url)
+    return get_absolute_url_for_site(url, site)
 
 
 def static(path, site_id=None):
@@ -36,6 +33,10 @@ def static(path, site_id=None):
     else:
         site = base.get_by_id(site_id)
 
+    return get_absolute_url_for_site(url, site)
+
+
+def get_absolute_url_for_site(url, site):
     url_tmpl = "{scheme}//{domain}{url}"
     scheme = site.scheme and "{0}:".format(site.scheme) or ""
     return url_tmpl.format(scheme=scheme, domain=site.domain, url=url)
