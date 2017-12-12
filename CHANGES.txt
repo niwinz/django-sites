@@ -1,6 +1,11 @@
 Changelog
 =========
 
+dev
+-----------
+- Add support for Django 2.0
+- Drop support for Django 1.5.x, 1.6.x, and 1.7.x
+
 Version 0.9
 -----------
 - Add support for Django 1.8 and 1.9
