@@ -4,18 +4,20 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.3">
-<meta name="author" content="Andrey Antukh, &lt;niwi@niwi.nz&gt;">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="author" content="Andrey Antukh, &amp;amp;lt;niwi@niwi.nz&amp;amp;gt;">
 <title>django-sites documentation</title>
 <style>
 .listingblock .pygments .hll { background-color: #ffffcc }
-.listingblock .pygments  { background: #f0f0f0; }
+.listingblock .pygments, .listingblock .pygments code { background: #f0f0f0; }
 .listingblock .pygments .tok-c { color: #60a0b0; font-style: italic } /* Comment */
 .listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
 .listingblock .pygments .tok-k { color: #007020; font-weight: bold } /* Keyword */
 .listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-ch { color: #60a0b0; font-style: italic } /* Comment.Hashbang */
 .listingblock .pygments .tok-cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
 .listingblock .pygments .tok-cp { color: #007020 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #60a0b0; font-style: italic } /* Comment.PreprocFile */
 .listingblock .pygments .tok-c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
 .listingblock .pygments .tok-cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
 .listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
@@ -55,8 +57,10 @@
 .listingblock .pygments .tok-mh { color: #40a070 } /* Literal.Number.Hex */
 .listingblock .pygments .tok-mi { color: #40a070 } /* Literal.Number.Integer */
 .listingblock .pygments .tok-mo { color: #40a070 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #4070a0 } /* Literal.String.Affix */
 .listingblock .pygments .tok-sb { color: #4070a0 } /* Literal.String.Backtick */
 .listingblock .pygments .tok-sc { color: #4070a0 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #4070a0 } /* Literal.String.Delimiter */
 .listingblock .pygments .tok-sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
 .listingblock .pygments .tok-s2 { color: #4070a0 } /* Literal.String.Double */
 .listingblock .pygments .tok-se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
@@ -67,9 +71,11 @@
 .listingblock .pygments .tok-s1 { color: #4070a0 } /* Literal.String.Single */
 .listingblock .pygments .tok-ss { color: #517918 } /* Literal.String.Symbol */
 .listingblock .pygments .tok-bp { color: #007020 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #06287e } /* Name.Function.Magic */
 .listingblock .pygments .tok-vc { color: #bb60d5 } /* Name.Variable.Class */
 .listingblock .pygments .tok-vg { color: #bb60d5 } /* Name.Variable.Global */
 .listingblock .pygments .tok-vi { color: #bb60d5 } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #bb60d5 } /* Name.Variable.Magic */
 .listingblock .pygments .tok-il { color: #40a070 } /* Literal.Number.Integer.Long */
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Liberation+Mono:400|Roboto+Slab:400,700"/>
@@ -79,9 +85,8 @@
 <div id="header">
 <h1>django-sites documentation</h1>
 <div class="details">
-<span id="author" class="author">Andrey Antukh, &lt;niwi@niwi.nz&gt;</span><br>
-<span id="revnumber">version 0.9.0,</span>
-<span id="revdate">2015-12-10</span>
+<span id="author" class="author">Andrey Antukh, &amp;amp;lt;niwi@niwi.nz&amp;amp;gt;</span><br>
+<span id="revdate">0.10.0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -127,10 +132,10 @@ but does not intends to solve the same use cases.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Python 2.7, 3.3, 3.4 or 3.5</p>
+<p>Python 2.7, 3.3, 3.4, 3.5 or 3.6</p>
 </li>
 <li>
-<p>Django 1.4, 1.5, 1.6, 1.7, 1.8 and 1.9</p>
+<p>Django 1.8, 1.9 and 2.0</p>
 </li>
 </ul>
 </div>
@@ -146,7 +151,7 @@ but does not intends to solve the same use cases.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">pip install django-sites</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>pip install django-sites</code></pre>
 </div>
 </div>
 </div>
@@ -157,7 +162,7 @@ but does not intends to solve the same use cases.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span class="tok-n">INSTALLED_APPS</span> <span class="tok-o">+=</span> <span class="tok-p">(</span><span class="tok-s">&#39;django_sites&#39;</span><span class="tok-p">,)</span></code></pre>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">INSTALLED_APPS</span> <span class="tok-o">+=</span> <span class="tok-p">(</span><span class="tok-s1">&#39;django_sites&#39;</span><span class="tok-p">,)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -165,33 +170,33 @@ but does not intends to solve the same use cases.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span class="tok-c"># settings.py</span>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-c1"># settings.py</span>
 <span class="tok-n">SITES</span> <span class="tok-o">=</span> <span class="tok-p">{</span>
-    <span class="tok-s">&quot;dev&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-s">&quot;domain&quot;</span><span class="tok-p">:</span> <span class="tok-s">&quot;localhost:8000&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;scheme&quot;</span><span class="tok-p">:</span> <span class="tok-s">&quot;http&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;name&quot;</span><span class="tok-p">:</span> <span class="tok-s">&quot;localhost&quot;</span><span class="tok-p">},</span>
-    <span class="tok-s">&quot;pro&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-s">&quot;domain&quot;</span><span class="tok-p">:</span> <span class="tok-s">&quot;somehost.com&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;scheme&quot;</span><span class="tok-p">:</span> <span class="tok-s">&quot;https&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;name&quot;</span><span class="tok-p">:</span> <span class="tok-s">&quot;somehost&quot;</span><span class="tok-p">},</span>
+    <span class="tok-s2">&quot;dev&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-s2">&quot;domain&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;localhost:8000&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;scheme&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;http&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;name&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;localhost&quot;</span><span class="tok-p">},</span>
+    <span class="tok-s2">&quot;pro&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-s2">&quot;domain&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;somehost.com&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;scheme&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;name&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;somehost&quot;</span><span class="tok-p">},</span>
 <span class="tok-p">}</span>
 
-<span class="tok-c"># settings_development.py</span>
-<span class="tok-c"># defaut site id for development environment</span>
-<span class="tok-n">SITE_ID</span> <span class="tok-o">=</span> <span class="tok-s">&quot;dev&quot;</span>
+<span class="tok-c1"># settings_development.py</span>
+<span class="tok-c1"># defaut site id for development environment</span>
+<span class="tok-n">SITE_ID</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;dev&quot;</span>
 
-<span class="tok-c"># settings_production.py</span>
-<span class="tok-c"># defaut site id for production environment</span>
-<span class="tok-n">SITE_ID</span> <span class="tok-o">=</span> <span class="tok-s">&quot;pro&quot;</span></code></pre>
+<span class="tok-c1"># settings_production.py</span>
+<span class="tok-c1"># defaut site id for production environment</span>
+<span class="tok-n">SITE_ID</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;pro&quot;</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_python_api_reference">3.3. Python Api reference</h3>
 <div class="sect3">
-<h4 id="__code_django_sites_get_current_code">3.3.1. <code>django_sites.get_current()</code></h4>
+<h4 id="_code_django_sites_get_current_code">3.3.1. <code>django_sites.get_current()</code></h4>
 <div class="paragraph">
 <p>Returns a current site instance depending on <code>settings.SITE_ID</code> value. It
 can raise <code>django_sites.exceptions.SitesNotConfigured</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_django_sites_get_by_id_id_code">3.3.2. <code>django_sites.get_by_id(id)</code></h4>
+<h4 id="_code_django_sites_get_by_id_id_code">3.3.2. <code>django_sites.get_by_id(id)</code></h4>
 <div class="paragraph">
 <p>Returns a site instance corresponding to specified id. It can raise
 <code>django_sites.exceptions.SiteNotFound</code> exception in case of
@@ -199,8 +204,8 @@ key not matches any configured site.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="pycon"><span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-kn">from</span> <span class="tok-nn">django_sites</span> <span class="tok-kn">import</span> <span class="tok-n">get_by_id</span> <span class="tok-k">as</span> <span class="tok-n">get_site_by_id</span>
-<span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-n">site</span> <span class="tok-o">=</span> <span class="tok-n">get_site_by_id</span><span class="tok-p">(</span><span class="tok-s">&quot;pro&quot;</span><span class="tok-p">)</span>
+<pre class="pygments highlight"><code data-lang="pycon"><span></span><span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-kn">from</span> <span class="tok-nn">django_sites</span> <span class="tok-kn">import</span> <span class="tok-n">get_by_id</span> <span class="tok-k">as</span> <span class="tok-n">get_site_by_id</span>
+<span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-n">site</span> <span class="tok-o">=</span> <span class="tok-n">get_site_by_id</span><span class="tok-p">(</span><span class="tok-s2">&quot;pro&quot;</span><span class="tok-p">)</span>
 <span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-n">site</span><span class="tok-o">.</span><span class="tok-n">domain</span>
 <span class="tok-go">&#39;somehost.com&#39;</span>
 <span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-n">site</span><span class="tok-o">.</span><span class="tok-n">scheme</span>
@@ -211,15 +216,15 @@ key not matches any configured site.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_django_sites_reverse_args_kwargs_code">3.3.3. <code>django_sites.reverse(*args, **kwargs)</code></h4>
+<h4 id="_code_django_sites_reverse_args_kwargs_code">3.3.3. <code>django_sites.reverse(*args, **kwargs)</code></h4>
 <div class="paragraph">
 <p>This function works like django&#8217;s reverse function but appends
 the current site scheme, and domain to the url.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="pycon"><span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-kn">from</span> <span class="tok-nn">django_sites</span> <span class="tok-kn">import</span> <span class="tok-n">reverse</span> <span class="tok-k">as</span> <span class="tok-n">sites_reverse</span>
-<span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-n">sites_reverse</span><span class="tok-p">(</span><span class="tok-s">&#39;ns:foo&#39;</span><span class="tok-p">)</span>
+<pre class="pygments highlight"><code data-lang="pycon"><span></span><span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-kn">from</span> <span class="tok-nn">django_sites</span> <span class="tok-kn">import</span> <span class="tok-n">reverse</span> <span class="tok-k">as</span> <span class="tok-n">sites_reverse</span>
+<span class="tok-gp">&gt;&gt;&gt; </span><span class="tok-n">sites_reverse</span><span class="tok-p">(</span><span class="tok-s1">&#39;ns:foo&#39;</span><span class="tok-p">)</span>
 <span class="tok-go">&#39;http://example.com/foo&#39;</span></code></pre>
 </div>
 </div>
@@ -236,15 +241,15 @@ for use it from jinja2 templates.</p>
 <div class="listingblock">
 <div class="title">Jinja2 template example</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="jinja"><span class="tok-x">&lt;a href=&quot;</span><span class="tok-cp">{{</span> <span class="tok-nv">sites_url</span><span class="tok-o">(</span><span class="tok-s1">&#39;foo&#39;</span><span class="tok-o">)</span> <span class="tok-cp">}}</span><span class="tok-x">&quot;&gt;Link&lt;/a&gt;</span>
+<pre class="pygments highlight"><code data-lang="jinja"><span></span><span class="tok-x">&lt;a href=&quot;</span><span class="tok-cp">{{</span> <span class="tok-nv">sites_url</span><span class="tok-o">(</span><span class="tok-s1">&#39;foo&#39;</span><span class="tok-o">)</span> <span class="tok-cp">}}</span><span class="tok-x">&quot;&gt;Link&lt;/a&gt;</span>
 <span class="tok-x">&lt;a href=&quot;</span><span class="tok-cp">{{</span> <span class="tok-nv">sites_url</span><span class="tok-o">(</span><span class="tok-s1">&#39;foo&#39;</span><span class="tok-o">,</span> <span class="tok-nv">site_id</span><span class="tok-o">=</span><span class="tok-s1">&#39;pro&#39;</span><span class="tok-o">)</span> <span class="tok-cp">}}</span><span class="tok-x">&quot;&gt;Link&lt;/a&gt;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Rendered result</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">&quot;http://localhost:8000/foo&quot;</span><span class="tok-nt">&gt;</span>Link<span class="tok-nt">&lt;/a&gt;</span>
-<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">&quot;https://somehost.com/foo&quot;</span><span class="tok-nt">&gt;</span>Link<span class="tok-nt">&lt;/a&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="html"><span></span><span class="tok-p">&lt;</span><span class="tok-nt">a</span> <span class="tok-na">href</span><span class="tok-o">=</span><span class="tok-s">&quot;http://localhost:8000/foo&quot;</span><span class="tok-p">&gt;</span>Link<span class="tok-p">&lt;/</span><span class="tok-nt">a</span><span class="tok-p">&gt;</span>
+<span class="tok-p">&lt;</span><span class="tok-nt">a</span> <span class="tok-na">href</span><span class="tok-o">=</span><span class="tok-s">&quot;https://somehost.com/foo&quot;</span><span class="tok-p">&gt;</span>Link<span class="tok-p">&lt;/</span><span class="tok-nt">a</span><span class="tok-p">&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -253,15 +258,15 @@ for use it from jinja2 templates.</p>
 <div class="listingblock">
 <div class="title">Jinja2 template example</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="jinja"><span class="tok-x">&lt;script src=&quot;</span><span class="tok-cp">{{</span> <span class="tok-nv">sites_static</span><span class="tok-o">(</span><span class="tok-s1">&#39;lib.js&#39;</span><span class="tok-o">)</span> <span class="tok-cp">}}</span><span class="tok-x">&quot;&gt;&lt;/script&gt;</span>
+<pre class="pygments highlight"><code data-lang="jinja"><span></span><span class="tok-x">&lt;script src=&quot;</span><span class="tok-cp">{{</span> <span class="tok-nv">sites_static</span><span class="tok-o">(</span><span class="tok-s1">&#39;lib.js&#39;</span><span class="tok-o">)</span> <span class="tok-cp">}}</span><span class="tok-x">&quot;&gt;&lt;/script&gt;</span>
 <span class="tok-x">&lt;script src=&quot;</span><span class="tok-cp">{{</span> <span class="tok-nv">sites_static</span><span class="tok-o">(</span><span class="tok-s1">&#39;lib.js&#39;</span><span class="tok-o">,</span> <span class="tok-nv">site_id</span><span class="tok-o">=</span><span class="tok-s1">&#39;pro&#39;</span><span class="tok-o">)</span> <span class="tok-cp">}}</span><span class="tok-x">&quot;&gt;&lt;/script&gt;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Rendered result</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="html"><span class="tok-nt">&lt;script </span><span class="tok-na">src=</span><span class="tok-s">&quot;http://localhost:8000/static/lib.js&quot;</span><span class="tok-nt">&gt;&lt;/script&gt;</span>
-<span class="tok-nt">&lt;script </span><span class="tok-na">src=</span><span class="tok-s">&quot;https://somehost.com/static/lib.js&quot;</span><span class="tok-nt">&gt;&lt;/script&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="html"><span></span><span class="tok-p">&lt;</span><span class="tok-nt">script</span> <span class="tok-na">src</span><span class="tok-o">=</span><span class="tok-s">&quot;http://localhost:8000/static/lib.js&quot;</span><span class="tok-p">&gt;&lt;/</span><span class="tok-nt">script</span><span class="tok-p">&gt;</span>
+<span class="tok-p">&lt;</span><span class="tok-nt">script</span> <span class="tok-na">src</span><span class="tok-o">=</span><span class="tok-s">&quot;https://somehost.com/static/lib.js&quot;</span><span class="tok-p">&gt;&lt;/</span><span class="tok-nt">script</span><span class="tok-p">&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -274,7 +279,7 @@ for use it from jinja2 templates.</p>
 <div class="listingblock">
 <div class="title"><a id="license"></a></div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="text">Copyright (c) 2013-2014 Andrey Antukh &lt;niwi@niwi.be&gt;
+<pre class="pygments highlight"><code data-lang="text"><span></span>Copyright (c) 2013-2016 Andrey Antukh &lt;niwi@niwi.nz&gt;
 
 All rights reserved.
 
@@ -306,8 +311,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.9.0<br>
-Last updated 2016-01-30 01:10:29 EET
+Last updated 2018-01-15 09:44:16 CET
 </div>
 </div>
 </body>
