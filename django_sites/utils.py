@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.staticfiles.templatetags.staticfiles import static as _static
+try:
+    # For django >= 3.0
+    from django.templatetags.static import static as _static
+except ImportError:
+    from django.contrib.staticfiles.templatetags.staticfiles import static as _static
 from django.utils.functional import lazy
 
 try:
