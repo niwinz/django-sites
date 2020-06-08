@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.staticfiles.templatetags.staticfiles import static as _static
+import django
+if django.VERSION[:2] >= (1, 10):
+    from django.templatetags.static import static as _static
+else:
+    from django.contrib.admin.templatetags.admin_static import static as _static
+
 from django.utils.functional import lazy
 
 try:
