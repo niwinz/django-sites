@@ -2,6 +2,7 @@ language: python
 sudo: false
 
 python:
+  - "3.9"
   - "3.8"
   - "3.7"
   - "3.6"
@@ -9,6 +10,7 @@ python:
   - "3.4"
 
 env:
+  - DJANGO="django==3.2.9"
   - DJANGO="django==3.0.5"
   - DJANGO="django==2.0"
   - DJANGO="django==1.10"
@@ -21,6 +23,10 @@ matrix:
       env: DJANGO="django==3.0.5"
     - python: "3.5"
       env: DJANGO="django==3.0.5"
+    - python: "3.4"
+      env: DJANGO="django==3.2.9"
+    - python: "3.5"
+      env: DJANGO="django==3.2.9"
 
 install:
   - pip install $DJANGO
