@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from django.utils.functional import cached_property
 from django.conf import settings
+from django.utils.functional import cached_property
 
 from . import exceptions
 
