@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+
 import django
 
+from django_sites import base, utils
 from django_sites.exceptions import SitesNotConfigured
-from django_sites import base
-from django_sites import utils
 
 if django.VERSION[:2] < (1, 7):
     from django.test.utils import override_settings
